@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIMT CYBER SECURITY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070d;--card:rgba(255,255,255,.04);--bd:rgba(255,255,255,.09);--tx:#e8ecf5;--mu:#8b93a7;--g:#00f0a8;--c:#38bdf8;--r:#ff4d6d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;min-height:100vh;
+background-image:radial-gradient(900px 500px at 80% -10%,rgba(56,189,248,.15),transparent),radial-gradient(700px 420px at 0% 0%,rgba(0,240,168,.12),transparent),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:auto,auto,44px 44px,44px 44px}
+.w{max-width:980px;margin:0 auto;padding:0 18px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;gap:10px;flex-wrap:wrap}
+.logo{font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.14em;font-size:15px;display:flex;align-items:center;gap:10px}
+.logo i{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--g),var(--c));color:#04120d;font-style:normal;box-shadow:0 0 24px rgba(0,240,168,.45)}
+.logo b{background:linear-gradient(90deg,var(--g),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero{padding:46px 0 26px}
+.hero h1{font-size:clamp(30px,6vw,52px);line-height:1.05;margin:0 0 12px;letter-spacing:-.02em}
+.hero h1 span{background:linear-gradient(90deg,var(--g),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mu);max-width:560px;margin:0;line-height:1.6}
+.mono{font-family:'JetBrains Mono',monospace}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin:14px 0;backdrop-filter:blur(14px)}
+button,input,select{font:inherit;color:var(--tx)}
+input,select{background:rgba(255,255,255,.05);border:1px solid var(--bd);border-radius:10px;padding:11px 12px;width:100%;outline:none}
+input:focus,select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,240,168,.15)}
+select option{background:#10131c}
+.btn{border:1px solid var(--bd);background:rgba(255,255,255,.05);padding:10px 16px;border-radius:10px;cursor:pointer;font-weight:600;transition:.2s}
+.btn:hover{border-color:var(--g)}
+.btn.p{background:linear-gradient(135deg,var(--g),var(--c));color:#04120d;border:0;box-shadow:0 6px 24px rgba(0,240,168,.25)}
+.btn.p:hover{transform:translateY(-1px)}.btn.r{color:var(--r)}.btn:disabled{opacity:.5}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.grow{flex:1;min-width:150px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 0}
+.chip{border:1px solid var(--bd);background:var(--card);padding:9px 16px;border-radius:99px;cursor:pointer;white-space:nowrap;font-size:14px}
+.chip.on{background:rgba(0,240,168,.12);border-color:var(--g);color:var(--g)}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 4px;border-top:1px solid var(--bd)}
+.item:first-child{border-top:0}
+.tag{font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(56,189,248,.14);color:var(--c);font-family:'JetBrains Mono',monospace}
+.t{font-weight:600}.mu{color:var(--mu);font-size:13px}
+.locked .t,.locked .mu{filter:blur(5px);user-select:none}
+.lock{font-size:13px;color:var(--mu);white-space:nowrap}
+.banner{border-color:rgba(255,200,60,.4);background:rgba(255,200,60,.07)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px;z-index:9}
+.ov[hidden]{display:none}.modal{background:#0c1019;border:1px solid var(--bd);border-radius:18px;padding:22px;width:100%;max-width:400px}
+.modal h2{margin:0 0 14px}.modal input{margin-bottom:10px}
+.err{color:var(--r);font-size:13px;min-height:18px}
+.stat{display:flex;gap:10px;font-size:12px}
+
+.lb{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.pod{border:1px solid var(--bd);border-radius:14px;padding:14px;background:rgba(255,255,255,.03)}
+.pod.g1{border-color:#ffd24a;background:linear-gradient(135deg,rgba(255,210,74,.14),rgba(255,210,74,.03));box-shadow:0 0 28px rgba(255,210,74,.18)}
+.pod.g2{border-color:#cfd8e6;background:linear-gradient(135deg,rgba(207,216,230,.13),rgba(207,216,230,.03));box-shadow:0 0 24px rgba(207,216,230,.12)}
+.pod .n{font-size:28px}.pod .nm{font-weight:700;font-size:17px}.pod .ms{color:var(--mu);font-size:12.5px;margin-top:6px;line-height:1.5}
+.rest{margin-top:10px}.rest div{display:flex;justify-content:space-between;padding:6px 2px;font-size:14px;border-top:1px solid var(--bd)}
+.crumb{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--g);margin:6px 0}
+.sub{font-size:12px;color:var(--mu);margin:10px 0 2px;font-family:'JetBrains Mono',monospace;letter-spacing:.08em}
+.note{border:1px solid #ffc83c;background:rgba(255,200,60,.1);border-radius:12px;padding:12px 14px;margin-top:10px;font-weight:600;line-height:1.5}
+.by{color:var(--g);font-weight:600}
+.chip .ct{opacity:.6;margin-left:6px;font-size:12px}
+.sm{padding:6px 11px;font-size:13px}
+details summary{cursor:pointer;font-weight:600}
+footer{text-align:center;color:var(--mu);font-size:12px;padding:30px 0}
+</style></head><body><div class="w">
+<nav><div class="logo"><i>⛨</i><span>IIMT <b>CYBER SECURITY</b></span></div><div class="row" id="navr"></div></nav>
+<section class="hero"><div class="tag" style="display:inline-block;margin-bottom:14px">CLASS VAULT // v2.0</div>
+<h1>Assignments, experiments &amp; notes — <span>one secure hub.</span></h1>
+<p>Subject → Unit → Assignment / Experiment / Other. Access request bhejo, Admin approve kare, phir download aur upload karo.</p></section>
+<div id="bn"></div>
+<div class="card" id="lbBox"></div>
+<div class="sub">SUBJECT</div><div class="tabs" id="tabs"></div>
+<div class="sub" id="ul">UNIT</div><div class="tabs" id="utabs"></div>
+<div class="sub" id="tl2">SECTION</div><div class="tabs" id="ttabs"></div>
+<div id="adminBox"></div>
+<div id="upBox"></div>
+<div class="row" style="margin-top:10px"><input id="srch" placeholder="Search title / student…" oninput="renderList()" class="grow"></div>
+<div class="crumb" id="crumb"></div>
+<div class="card" id="list"></div>
+<footer class="mono"><div style="color:var(--g);font-weight:700;letter-spacing:.12em;font-size:13px">MADE BY VIKASH JADOUN</div><div style="margin-top:6px">© IIMT CYBER SECURITY</div></footer></div>
+
+<div class="ov" id="ov" hidden onclick="if(event.target===this)closeM()"><div class="modal">
+<div class="row" style="margin-bottom:14px"><button class="chip on" id="tl" onclick="mode('login')">Login</button><button class="chip" id="tr" onclick="mode('reg')">Request Access</button></div>
+<div id="nmw" hidden><input id="nm" placeholder="Full name"></div>
+<input id="no" placeholder="Number (roll no / mobile)"><input id="pw" type="password" placeholder="Password (khud set karo)">
+<div class="err" id="er"></div><button class="btn p" style="width:100%" id="go" onclick="submitAuth()">Login</button></div></div>
+
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const TYPES=['Assignment','Experiment','Other'];
+let T=localStorage.getItem('tok')||'',D={subjects:[],units:[],uploads:[],me:null},cs=null,cu=null,ct='Assignment',M='login',users=[],noteT=null;
+async function api(a,body,qs=''){const r=await fetch('/api?a='+a+qs,{method:body?'POST':'GET',headers:{'Content-Type':'application/json',...(T?{Authorization:'Bearer '+T}:{})},body:body?JSON.stringify(body):undefined});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'Error');return j}
+const adm=()=>D.me&&D.me.role==='admin';
+const canView=()=>D.me&&(D.me.status==='approved'||D.me.status==='banned');
+const canUp=()=>D.me&&D.me.status==='approved';
+const unitsOf=s=>D.units.filter(u=>u.subject_id===s);
+async function load(){try{D=await api('public');if(!D.me&&T){T='';localStorage.removeItem('tok')}
+ if(!D.subjects.find(s=>s.id===cs))cs=D.subjects[0]?.id||null;
+ const us=unitsOf(cs);if(!us.find(u=>u.id===cu))cu=us[0]?.id||null;
+ if(adm())users=await api('users')}catch(e){$('list').innerHTML='<span class="mu">'+esc(e.message)+'</span>'}render()}
+function leaderboard(){
+ const m={};D.uploads.forEach(u=>{if(!u.user_id)return;(m[u.user_id]=m[u.user_id]||{n:u.user_name,c:0}).c++});
+ const a=Object.values(m).sort((x,y)=>y.c-x.c).slice(0,5);
+ if(!a.length)return '<b>🏆 Top Uploaders</b><div class="mu" style="margin-top:6px">Abhi kisi ne upload nahi kiya. Pehle upload karke #1 ban jao! 🚀</div>';
+ const msg=['🔥 Class ke Champion! Aap sabke liye inspiration ho. Ye taj barkarar rakhna!','⚡ Bas thoda aur — #1 door nahi hai. Aap kar sakte ho!'];
+ const top=a.slice(0,2).map((x,i)=>`<div class="pod g${i+1}"><div class="n">${i?'🥈':'🥇'}</div><div class="nm">${esc(x.n)}</div><div class="mu mono">${x.c} uploads</div><div class="ms">${msg[i]}</div></div>`).join('');
+ const rest=a.slice(2).map((x,i)=>`<div><span>#${i+3} ${esc(x.n)}</span><span class="mono mu">${x.c} uploads</span></div>`).join('');
+ return `<b>🏆 Top Uploaders</b><div class="mu" style="margin:4px 0 12px">Jo sabse zyada upload karega wo yahan chamkega. Keep going!</div><div class="lb">${top}</div>${rest?`<div class="rest">${rest}</div>`:''}`}
+function render(){
+ const m=D.me,st=m&&m.status;
+ $('navr').innerHTML=m?`<span class="mu mono">${esc(m.name)} ${adm()?'· ADMIN':''}</span><button class="btn" onclick="logout()">Logout</button>`:`<button class="btn" onclick="openM('login')">Login</button><button class="btn p" onclick="openM('reg')">Request Access</button>`;
+ $('bn').innerHTML=!m?`<div class="card banner">🔒 Aap guest ho. Content dikh raha hai par locked hai — <a href="#" style="color:var(--g)" onclick="openM('reg');return false">access request bhejo</a>.</div>`:st==='pending'?`<div class="card banner">⏳ Aapki request pending hai. Admin approve karega tab upload/download unlock hoga.</div>`:st==='banned'?`<div class="card banner" style="border-color:rgba(255,77,109,.5);background:rgba(255,77,109,.08)">🚫 Admin ne aapko upload karne se ban kar diya hai. Aap files dekh aur download kar sakte ho.</div>`:'';
+ $('lbBox').innerHTML=leaderboard();
+ $('tabs').innerHTML=D.subjects.length?D.subjects.map(s=>`<button class="chip ${s.id===cs?'on':''}" onclick="pickS('${s.id}')">${esc(s.name)}</button>`).join(''):'<span class="mu">Abhi koi subject nahi hai. Admin subject add karega.</span>';
+ const us=unitsOf(cs);
+ $('utabs').innerHTML=!cs?'':us.length?us.map(u=>`<button class="chip ${u.id===cu?'on':''}" onclick="cu='${u.id}';render()">${esc(u.name)}</button>`).join(''):'<span class="mu">Is subject me abhi unit nahi hai.</span>';
+ $('ttabs').innerHTML=!cu?'':TYPES.map(t=>{const n=D.uploads.filter(u=>u.unit_id===cu&&u.type===t).length;return `<button class="chip ${t===ct?'on':''}" onclick="ct='${t}';render()">${t}<span class="ct">${n}</span></button>`}).join('');
+ $('ul').hidden=!cs;$('tl2').hidden=!cu;
+ renderAdmin();renderUp();renderList();
+}
+function pickS(id){cs=id;cu=unitsOf(id)[0]?.id||null;render()}
+function renderAdmin(){
+ if(!adm()){$('adminBox').innerHTML='';return}
+ const sn=D.subjects.find(s=>s.id===cs)?.name,un=D.units.find(u=>u.id===cu)?.name;
+ const ord={pending:0,approved:1,banned:2,rejected:3};
+ const lst=[...users].sort((a,b)=>ord[a.status]-ord[b.status]);
+ $('adminBox').innerHTML=`<div class="card"><b>🛠 Admin panel</b>
+ <div class="row" style="margin:10px 0"><input id="sn" class="grow" placeholder="Naya subject"><button class="btn p" onclick="addSub()">+ Subject</button>${cs?`<button class="btn r sm" onclick="delSub()">Delete "${esc(sn)}"</button>`:''}</div>
+ ${cs?`<div class="row" style="margin:10px 0"><input id="un" class="grow" placeholder="Naya unit (jaise Unit 1) — ${esc(sn)} me"><button class="btn p" onclick="addUnit()">+ Unit</button>${cu?`<button class="btn r sm" onclick="delUnit()">Delete "${esc(un)}"</button>`:''}</div>`:''}
+ <details open><summary>Students (${users.length})</summary><div style="margin-top:8px">${lst.length?lst.map(u=>`<div class="item"><div><div class="t">${esc(u.name)}</div><div class="mu mono">${esc(u.number)} · ${u.status}</div></div><div class="row">${u.status==='pending'||u.status==='rejected'?`<button class="btn p sm" onclick="setSt('${u.id}','approved')">Accept</button>`:''}${u.status==='pending'?`<button class="btn r sm" onclick="setSt('${u.id}','rejected')">Reject</button>`:''}${u.status==='approved'?`<button class="btn r sm" onclick="setSt('${u.id}','banned')">Ban upload</button>`:''}${u.status==='banned'?`<button class="btn p sm" onclick="setSt('${u.id}','approved')">Unban</button>`:''}</div></div>`).join(''):'<span class="mu">Koi request nahi.</span>'}</div></details></div>`}
+function renderUp(){
+ clearInterval(noteT);
+ $('upBox').innerHTML=!cu?'':canUp()?`<div class="card"><b>⬆ Upload → ${esc(ct)}</b><div class="row" style="margin-top:10px"><input id="ti" class="grow" placeholder="Title (e.g. Assignment 3)"><input id="fi" type="file" class="grow" multiple onchange="onFile()"><button class="btn p" id="ub" onclick="upload()">Upload</button></div>
+ <div class="note" id="note" hidden>📝 Please, Upload karne se pehle ek baar <u>Page no.</u> daal do page par. <span class="mono" id="cd"></span></div>
+ <div class="mu" style="margin-top:6px">Ek baar me max 30 photos/files select karo (title me number auto lagega). Photo auto-compress hoti hai. PDF max 8 MB. File par "Uploaded by ${esc(D.me.name)}" dikhega.</div></div>`:`<div class="card mu">🔒 Upload locked — ${D.me&&D.me.status==='banned'?'Admin ne aapka upload band kiya hai.':'sirf approved students upload kar sakte hain.'}</div>`}
+function onFile(){clearInterval(noteT);const fs=[...$('fi').files],n=$('note'),b=$('ub');
+ if(fs.length>MAXN){alert('Ek baar me maximum '+MAXN+' files select kar sakte ho. Pehli '+MAXN+' hi rakhi jaayengi.')}
+ if(fs.some(f=>f.type.startsWith('image/'))){let s=5;n.hidden=false;b.disabled=true;$('cd').textContent='('+s+'s)';b.textContent='Padho… '+s;
+  noteT=setInterval(()=>{s--;if(s<=0){clearInterval(noteT);n.hidden=true;b.disabled=false;b.textContent=fs.length>1?'Upload ('+Math.min(fs.length,MAXN)+')':'Upload'}else{$('cd').textContent='('+s+'s)';b.textContent='Padho… '+s}},1000)}
+ else{n.hidden=true;b.disabled=false;b.textContent=fs.length>1?'Upload ('+Math.min(fs.length,MAXN)+')':'Upload'}}
+function renderList(){
+ const sn=D.subjects.find(s=>s.id===cs)?.name,un=D.units.find(u=>u.id===cu)?.name;
+ $('crumb').textContent=cu?`${sn} › ${un} › ${ct}`:'';
+ const s=($('srch').value||'').toLowerCase(),v=canView();
+ const L=D.uploads.filter(u=>u.unit_id===cu&&u.type===ct&&(!s||(u.title+u.user_name).toLowerCase().includes(s)));
+ $('list').innerHTML=!cu?'<span class="mu">Subject aur unit chuno.</span>':L.length?L.map(u=>{const mine=adm()||(D.me&&u.user_id===D.me.id);return `<div class="item ${v?'':'locked'}"><div><div class="t">${esc(u.title)}</div><div class="mu"><span class="tag">${esc(u.type)}</span> <span class="by">✍ Uploaded by ${esc(u.user_name)}</span> · ${new Date(u.created_at).toLocaleDateString()}</div></div><div class="row">${v?`<button class="btn p sm" onclick="dl('${u.id}')">Open</button>${mine?`<button class="btn r sm" onclick="del('${u.id}')">Delete</button>`:''}`:`<span class="lock">🔒 Locked</span>`}</div></div>`}).join(''):'<span class="mu">Is section me abhi kuch upload nahi hua. Pehle upload karke leaderboard me aao! 🚀</span>';
+}
+function openM(x){mode(x);$('ov').hidden=false;$('er').textContent=''}function closeM(){$('ov').hidden=true}
+function mode(x){M=x;$('nmw').hidden=x!=='reg';$('tl').className='chip'+(x==='login'?' on':'');$('tr').className='chip'+(x==='reg'?' on':'');$('go').textContent=x==='reg'?'Send Request':'Login'}
+async function submitAuth(){$('er').textContent='';$('go').disabled=true;try{
+ if(M==='reg'){await api('register',{name:$('nm').value,number:$('no').value,password:$('pw').value});mode('login');$('er').style.color='var(--g)';$('er').textContent='Request bhej di! Admin approve karega. Ab login karke status dekho.';}
+ else{const j=await api('login',{number:$('no').value,password:$('pw').value});T=j.token;localStorage.setItem('tok',T);closeM();await load()}
+}catch(e){$('er').style.color='var(--r)';$('er').textContent=e.message}$('go').disabled=false}
+function logout(){T='';localStorage.removeItem('tok');D.me=null;users=[];load()}
+async function addSub(){try{await api('subject',{name:$('sn').value});await load()}catch(e){alert(e.message)}}
+async function delSub(){if(confirm('Is subject, uske units aur saare uploads delete karne hain?')){await api('delsubject',{id:cs});cs=null;await load()}}
+async function addUnit(){try{await api('unit',{subject_id:cs,name:$('un').value});await load()}catch(e){alert(e.message)}}
+async function delUnit(){if(confirm('Is unit ke saare uploads delete ho jaayenge. Pakka?')){await api('delunit',{id:cu});cu=null;await load()}}
+async function setSt(id,status){if(status==='banned'&&!confirm('Is student ko upload se ban karna hai?'))return;await api('setstatus',{id,status});await load()}
+async function dl(id){try{const j=await api('file',null,'&id='+id);window.open(j.url,'_blank')}catch(e){alert(e.message)}}
+async function del(id){if(!confirm('Delete karna hai?'))return;try{await api('delupload',{id});await load()}catch(e){alert(e.message)}}
+const MAXMB=8,MAXN=30;
+function compress(f){return new Promise(res=>{if(!f.type.startsWith('image/')||f.type==='image/gif')return res(f);
+ const img=new Image(),u=URL.createObjectURL(f);
+ img.onload=()=>{const M=1600;let w=img.width,h=img.height;if(Math.max(w,h)>M){const r=M/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r)}
+  const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);
+  c.toBlob(b=>{URL.revokeObjectURL(u);if(!b||b.size>=f.size)return res(f);res(new File([b],f.name.replace(/\.[^.]+$/,'')+'.jpg',{type:'image/jpeg'}))},'image/jpeg',0.7)};
+ img.onerror=()=>{URL.revokeObjectURL(u);res(f)};img.src=u})}
+async function upload(){let fs=[...$('fi').files];const t=$('ti').value.trim();
+ if(!fs.length||!t)return alert('Title aur kam se kam ek file do');
+ fs=fs.slice(0,MAXN);const total=fs.length,b=$('ub');
+ b.disabled=true;b.textContent='Uploading 0/'+total+'…';
+ let done=0,idx=0;const fail=[];
+ const one=async(f0,i)=>{try{
+  let f=await compress(f0);
+  if(f.size>MAXMB*1048576)throw new Error('badi');
+  const s=await api('signupload',{filename:f.name});
+  const r=await fetch(s.url,{method:'PUT',headers:{'Content-Type':f.type||'application/octet-stream','x-upsert':'false'},body:f});
+  if(!r.ok)throw new Error('put');
+  await api('addupload',{path:s.path,subject_id:cs,unit_id:cu,type:ct,title:total>1?t+' ('+(i+1)+')':t,content_type:f.type});
+ }catch(e){fail.push(f0.name)}
+ done++;b.textContent='Uploading '+done+'/'+total+'…'};
+ const worker=async()=>{while(idx<total){const i=idx++;await one(fs[i],i)}};
+ await Promise.all([worker(),worker(),worker()]);
+ if(fail.length)alert(fail.length+' file upload nahi hui (8MB se badi ya error):\n'+fail.join('\n'));
+ await load();}
+load();
+</script></body></html>
