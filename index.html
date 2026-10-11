@@ -129,7 +129,7 @@ function renderUp(){
  clearInterval(noteT);
  $('upBox').innerHTML=!cu?'':canUp()?`<div class="card"><b>⬆ Upload → ${esc(ct)}</b><div class="row" style="margin-top:10px"><input id="ti" class="grow" placeholder="Title (e.g. Assignment 3)"><input id="fi" type="file" class="grow" onchange="onFile()"><button class="btn p" id="ub" onclick="upload()">Upload</button></div>
  <div class="note" id="note" hidden>📝 Please, Upload karne se pehle ek baar <u>Page no.</u> daal do page par. <span class="mono" id="cd"></span></div>
- <div class="mu" style="margin-top:6px">Max 25 MB. File par "Uploaded by ${esc(D.me.name)}" dikhega.</div></div>`:`<div class="card mu">🔒 Upload locked — ${D.me&&D.me.status==='banned'?'Admin ne aapka upload band kiya hai.':'sirf approved students upload kar sakte hain.'}</div>`}
+ <div class="mu" style="margin-top:6px">Photo auto-compress hoti hai (kam data). PDF max 8 MB. File par "Uploaded by ${esc(D.me.name)}" dikhega.</div></div>`:`<div class="card mu">🔒 Upload locked — ${D.me&&D.me.status==='banned'?'Admin ne aapka upload band kiya hai.':'sirf approved students upload kar sakte hain.'}</div>`}
 function onFile(){clearInterval(noteT);const f=$('fi').files[0],n=$('note'),b=$('ub');
  if(f&&f.type.startsWith('image/')){let s=5;n.hidden=false;b.disabled=true;$('cd').textContent='('+s+'s)';b.textContent='Padho… '+s;
   noteT=setInterval(()=>{s--;if(s<=0){clearInterval(noteT);n.hidden=true;b.disabled=false;b.textContent='Upload'}else{$('cd').textContent='('+s+'s)';b.textContent='Padho… '+s}},1000)}
@@ -155,9 +155,19 @@ async function delUnit(){if(confirm('Is unit ke saare uploads delete ho jaayenge
 async function setSt(id,status){if(status==='banned'&&!confirm('Is student ko upload se ban karna hai?'))return;await api('setstatus',{id,status});await load()}
 async function dl(id){try{const j=await api('file',null,'&id='+id);window.open(j.url,'_blank')}catch(e){alert(e.message)}}
 async function del(id){if(!confirm('Delete karna hai?'))return;try{await api('delupload',{id});await load()}catch(e){alert(e.message)}}
-async function upload(){const f=$('fi').files[0],t=$('ti').value.trim();if(!f||!t)return alert('Title aur file dono do');if(f.size>25*1048576)return alert('File 25MB se badi hai');
- $('ub').disabled=true;$('ub').textContent='Uploading…';
- try{const s=await api('signupload',{filename:f.name});const r=await fetch(s.url,{method:'PUT',headers:{'Content-Type':f.type||'application/octet-stream','x-upsert':'false'},body:f});if(!r.ok)throw new Error('Upload fail');
+const MAXMB=8;
+function compress(f){return new Promise(res=>{if(!f.type.startsWith('image/')||f.type==='image/gif')return res(f);
+ const img=new Image(),u=URL.createObjectURL(f);
+ img.onload=()=>{const M=1600;let w=img.width,h=img.height;if(Math.max(w,h)>M){const r=M/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r)}
+  const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);
+  c.toBlob(b=>{URL.revokeObjectURL(u);if(!b||b.size>=f.size)return res(f);res(new File([b],f.name.replace(/\.[^.]+$/,'')+'.jpg',{type:'image/jpeg'}))},'image/jpeg',0.7)};
+ img.onerror=()=>{URL.revokeObjectURL(u);res(f)};img.src=u})}
+async function upload(){let f=$('fi').files[0];const t=$('ti').value.trim();if(!f||!t)return alert('Title aur file dono do');
+ $('ub').disabled=true;$('ub').textContent='Compressing…';
+ try{f=await compress(f);
+ if(f.size>MAXMB*1048576){alert('File '+MAXMB+'MB se badi hai. Chhoti PDF ya photo upload karo.');render();return}
+ $('ub').textContent='Uploading…';
+ const s=await api('signupload',{filename:f.name});const r=await fetch(s.url,{method:'PUT',headers:{'Content-Type':f.type||'application/octet-stream','x-upsert':'false'},body:f});if(!r.ok)throw new Error('Upload fail');
  await api('addupload',{path:s.path,subject_id:cs,unit_id:cu,type:ct,title:t,content_type:f.type});await load()}catch(e){alert(e.message);render()}}
 load();
 </script></body></html>
